@@ -46,8 +46,6 @@ const Students = () => {
       formData.append("firstName", firstName);
       formData.append("lastName", lastName);
       formData.append("age", age);
-      formData.append("group", group);
-      formData.append("teacher", teacher);
       formData.append("avatar", avatar);
 
       await axios.post(
@@ -133,8 +131,6 @@ const Students = () => {
                 <TableCell>Firstname</TableCell>
                 <TableCell>Lastname</TableCell>
                 <TableCell>Age</TableCell>
-                <TableCell>Group</TableCell>
-                <TableCell>Teacher</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
@@ -161,8 +157,6 @@ const Students = () => {
                   <TableCell>{student.firstName}</TableCell>
                   <TableCell>{student.lastName}</TableCell>
                   <TableCell>{student.age}</TableCell>
-                  <TableCell>{student.group}</TableCell>
-                  <TableCell>{student.teacher}</TableCell>
                   <TableCell>
                     <Actions
                       type="student"
