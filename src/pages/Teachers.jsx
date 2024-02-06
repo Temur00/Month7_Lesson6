@@ -14,14 +14,15 @@ import {
 } from "@mui/material";
 
 import { Actions, Loader, AddStudent } from "./../components";
+import EditTeacher from "../components/EditTeacher";
 
 const Teachers = () => {
   const [loading, setLoading] = useState(false);
-  54;
   const [teachers, setTeachers] = useState([]);
   const [error, setError] = useState(null);
-
   const [openAdd, setOpenAdd] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [selectedTeacher, setSelectedTeacher] = useState(null);
 
   const fetchTeachers = async () => {
     setLoading(true);
@@ -65,10 +66,6 @@ const Teachers = () => {
     }
   };
 
-  useEffect(() => {
-    fetchTeachers();
-  }, []);
-
   const handleDelete = async (type, id) => {
     if (window.confirm(`Are you sure you want to delete this teacher ?`))
       try {
@@ -88,6 +85,15 @@ const Teachers = () => {
       }
   };
 
+  const handleEdit = (teacher) => {
+    setSelectedTeacher(teacher);
+    setOpenEdit(true);
+  };
+
+  useEffect(() => {
+    fetchTeachers();
+  }, []);
+
   return (
     <div>
       {openAdd && (
@@ -95,6 +101,14 @@ const Teachers = () => {
           openAdd={openAdd}
           setOpenAdd={setOpenAdd}
           addStudent={addStudent}
+          fetchTeachers={fetchTeachers}
+        />
+      )}
+      {openEdit && (
+        <EditTeacher
+          openEdit={openEdit}
+          setOpenEdit={setOpenEdit}
+          selectedTeacher={selectedTeacher}
           fetchTeachers={fetchTeachers}
         />
       )}
@@ -162,7 +176,8 @@ const Teachers = () => {
                     <Actions
                       type="teacher"
                       data={teacher}
-                      handleDelete={handleDelete}
+                      handleEdit={() => handleEdit(teacher)}
+                      handleDelete={() => handleDelete("teachers", teacher.id)}
                     />
                   </TableCell>
                 </TableRow>
