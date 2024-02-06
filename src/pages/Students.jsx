@@ -14,14 +14,15 @@ import {
 } from "@mui/material";
 
 import { Actions, Loader, AddStudent } from "./../components";
+import EditStudent from "../components/EditStudent";
 
 const Students = () => {
   const [loading, setLoading] = useState(false);
-  54;
   const [students, setStudents] = useState([]);
   const [error, setError] = useState(null);
-
   const [openAdd, setOpenAdd] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
   const fetchStudents = async () => {
     setLoading(true);
@@ -41,7 +42,7 @@ const Students = () => {
   const addStudent = async (student) => {
     setLoading(true);
     try {
-      const { firstName, lastName, age, group, teacher, avatar } = student;
+      const { firstName, lastName, age, avatar } = student;
       const formData = new FormData();
       formData.append("firstName", firstName);
       formData.append("lastName", lastName);
@@ -57,6 +58,7 @@ const Students = () => {
           },
         }
       );
+      fetchStudents();
     } catch (error) {
       setError(error);
     } finally {
@@ -65,22 +67,22 @@ const Students = () => {
   };
 
   const handleDelete = async (type, id) => {
-    if (window.confirm(`Are you sure you want to delete this student?`))
+    if (window.confirm(`Are you sure you want to delete this student?`)) {
       try {
-        const response = await fetch(
-          `https://65bb677f52189914b5bc02b7.mockapi.io/${type}/${id}`,
-          {
-            method: "Delete",
-          }
+        await axios.delete(
+          `https://65bb677f52189914b5bc02b7.mockapi.io/${type}/${id}`
         );
-        if (!response.ok) {
-          throw new Error(`Failed to delete ${type} with ID ${id}`);
-        }
         setStudents(students.filter((student) => student.id !== id));
-        console.log(`${type} with ID ${id} deleted succesfully.`);
+        console.log(`${type} with ID ${id} deleted successfully.`);
       } catch (error) {
         console.log(error);
       }
+    }
+  };
+
+  const handleEdit = (student) => {
+    setSelectedStudent(student);
+    setOpenEdit(true);
   };
 
   useEffect(() => {
@@ -94,6 +96,14 @@ const Students = () => {
           openAdd={openAdd}
           setOpenAdd={setOpenAdd}
           addStudent={addStudent}
+          fetchStudents={fetchStudents}
+        />
+      )}
+      {openEdit && (
+        <EditStudent
+          openEdit={openEdit}
+          setOpenEdit={setOpenEdit}
+          selectedStudent={selectedStudent}
           fetchStudents={fetchStudents}
         />
       )}
@@ -161,7 +171,8 @@ const Students = () => {
                     <Actions
                       type="student"
                       data={student}
-                      handleDelete={handleDelete}
+                      handleEdit={() => handleEdit(student)}
+                      handleDelete={() => handleDelete("students", student.id)}
                     />
                   </TableCell>
                 </TableRow>

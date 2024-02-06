@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState } from "react";
 
 import {
   Button,
@@ -13,33 +13,31 @@ import {
   Slide,
   Stack,
   TextField,
-} from '@mui/material';
-import styled from '@emotion/styled';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+} from "@mui/material";
+import styled from "@emotion/styled";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-const VisuallyHiddenInput = styled('input')({
-  clip: 'rect(0 0 0 0)',
-  clipPath: 'inset(50%)',
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
   height: 1,
-  overflow: 'hidden',
-  position: 'absolute',
+  overflow: "hidden",
+  position: "absolute",
   bottom: 0,
   left: 0,
-  whiteSpace: 'nowrap',
+  whiteSpace: "nowrap",
   width: 1,
 });
 
 const AddStudent = ({ openAdd, setOpenAdd, addStudent, fetchStudents }) => {
   const [student, setStudent] = useState({
-    firstName: '',
-    lastName: '',
-    age: '',
-    group: '',
-    teacher: '',
+    firstName: "",
+    lastName: "",
+    age: "",
   });
   const [avatar, setAvatar] = useState();
 
@@ -51,11 +49,9 @@ const AddStudent = ({ openAdd, setOpenAdd, addStudent, fetchStudents }) => {
     e.preventDefault();
     addStudent({ ...student, avatar });
     setStudent({
-      firstName: '',
-      lastName: '',
-      age: '',
-      group: '',
-      teacher: '',
+      firstName: "",
+      lastName: "",
+      age: "",
     });
     setOpenAdd(false);
     fetchStudents();
@@ -71,8 +67,8 @@ const AddStudent = ({ openAdd, setOpenAdd, addStudent, fetchStudents }) => {
     >
       <DialogTitle>Add student</DialogTitle>
       <DialogContent>
-        <form style={{ width: '400px' }}>
-          <Stack sx={{ paddingBottom: '24px' }}>
+        <form style={{ width: "400px" }}>
+          <Stack sx={{ paddingBottom: "24px" }}>
             <TextField
               label="Firstname"
               variant="standard"
@@ -87,7 +83,7 @@ const AddStudent = ({ openAdd, setOpenAdd, addStudent, fetchStudents }) => {
               }
             />
           </Stack>
-          <Stack sx={{ paddingBottom: '24px' }}>
+          <Stack sx={{ paddingBottom: "24px" }}>
             <TextField
               label="Lastname"
               variant="standard"
@@ -102,7 +98,7 @@ const AddStudent = ({ openAdd, setOpenAdd, addStudent, fetchStudents }) => {
               }
             />
           </Stack>
-          <Stack sx={{ paddingBottom: '24px' }}>
+          <Stack sx={{ paddingBottom: "24px" }}>
             <TextField
               label="Age"
               variant="standard"
@@ -117,55 +113,7 @@ const AddStudent = ({ openAdd, setOpenAdd, addStudent, fetchStudents }) => {
               }
             />
           </Stack>
-          <Stack sx={{ paddingBottom: '24px' }}>
-            <FormControl fullWidth>
-              <InputLabel id="group">Group</InputLabel>
-              <Select
-                labelId="group"
-                id="group"
-                name="group"
-                value={student.group}
-                label="group"
-                onChange={(e) =>
-                  setStudent({
-                    ...student,
-                    group: e.target.value,
-                  })
-                }
-              >
-                <MenuItem value="React N32">React N32</MenuItem>
-                <MenuItem value="React N45">React N45</MenuItem>
-                <MenuItem value="React N50">React N50</MenuItem>
-                <MenuItem value="React N58">React N58</MenuItem>
-              </Select>
-            </FormControl>
-          </Stack>
-          <Stack sx={{ paddingBottom: '24px' }}>
-            <FormControl fullWidth>
-              <InputLabel id="teacher">Teacher</InputLabel>
-              <Select
-                labelId="teacher"
-                id="teacher"
-                name="teacher"
-                value={student.teacher}
-                label="teacher"
-                onChange={(e) =>
-                  setStudent({
-                    ...student,
-                    teacher: e.target.value,
-                  })
-                }
-              >
-                <MenuItem value="John Doe">John Doe</MenuItem>
-                <MenuItem value="Bruce Wayne">Bruce Wayne</MenuItem>
-                <MenuItem value="Temur Shernazarov">Temur Shernazarov</MenuItem>
-                <MenuItem value="Shohjahon Muhammadiyev">
-                  Shohjahon Muhammadiyev
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </Stack>
-          <Stack sx={{ paddingBottom: '24px' }}>
+          <Stack sx={{ paddingBottom: "24px" }}>
             <Button
               component="label"
               variant="contained"
