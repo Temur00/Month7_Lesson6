@@ -27,7 +27,7 @@ const Students = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        "https://654e0ef4cbc3253557424b9d.mockapi.io/students"
+        "https://65bb677f52189914b5bc02b7.mockapi.io/students"
       );
       const data = await res.data;
       setStudents(data);
@@ -51,7 +51,7 @@ const Students = () => {
       formData.append("avatar", avatar);
 
       await axios.post(
-        "https://654e0ef4cbc3253557424b9d.mockapi.io/students",
+        "https://65bb677f52189914b5bc02b7.mockapi.io/students",
         formData,
         {
           headers: {
@@ -70,7 +70,7 @@ const Students = () => {
     if (window.confirm(`Are you sure you want to delete this student?`))
       try {
         const response = await fetch(
-          `https://654e0ef4cbc3253557424b9d.mockapi.io/${type}/${id}`,
+          `https://65bb677f52189914b5bc02b7.mockapi.io/${type}/${id}`,
           {
             method: "Delete",
           }
