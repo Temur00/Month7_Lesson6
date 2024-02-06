@@ -158,6 +158,26 @@ const Teachers = () => {
     fetchTeachers();
   }, []);
 
+  const handleDelete = async (type, id) => {
+    if (window.confirm(`Are you sure you want to delete this teacher ?`)) {
+    }
+    try {
+      const res = await fetch(
+        `https://65bb677f52189914b5bc02b7.mockapi.io/${type}/${id}`,
+        {
+          method: "Delete",
+        }
+      );
+      if (!res.ok) {
+        throw new Error(`Failed to delete ${type} with ID ${id}`);
+      }
+      setTeachers(teachers.filter((teacher) => teacher.id !== id));
+      console.log(`${type} with ID ${id} deleted succesfully.`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       {openAdd && (
@@ -233,7 +253,11 @@ const Teachers = () => {
                   <TableCell>{teacher.level}</TableCell>
                   {/* <TableCell>{teacher.teacher}</TableCell> */}
                   <TableCell>
-                    <Actions />
+                    <Actions
+                      type="teacher"
+                      data={teacher}
+                      handleDelete={handleDelete}
+                    />
                   </TableCell>
                 </TableRow>
               ))}

@@ -66,6 +66,25 @@ const Students = () => {
     }
   };
 
+  const handleDelete = async (type, id) => {
+    if (window.confirm(`Are you sure you want to delete this student?`))
+      try {
+        const response = await fetch(
+          `https://654e0ef4cbc3253557424b9d.mockapi.io/${type}/${id}`,
+          {
+            method: "Delete",
+          }
+        );
+        if (!response.ok) {
+          throw new Error(`Failed to delete ${type} with ID ${id}`);
+        }
+        setStudents(students.filter((student) => student.id !== id));
+        console.log(`${type} with ID ${id} deleted succesfully.`);
+      } catch (error) {
+        console.log(error);
+      }
+  };
+
   useEffect(() => {
     fetchStudents();
   }, []);
@@ -145,7 +164,11 @@ const Students = () => {
                   <TableCell>{student.group}</TableCell>
                   <TableCell>{student.teacher}</TableCell>
                   <TableCell>
-                    <Actions />
+                    <Actions
+                      type="student"
+                      data={student}
+                      handleDelete={handleDelete}
+                    />
                   </TableCell>
                 </TableRow>
               ))}
