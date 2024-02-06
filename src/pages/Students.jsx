@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Button,
   Paper,
@@ -11,12 +11,13 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 
-import { Actions, Loader, AddStudent } from './../components';
+import { Actions, Loader, AddStudent } from "./../components";
 
 const Students = () => {
   const [loading, setLoading] = useState(false);
+  54;
   const [students, setStudents] = useState([]);
   const [error, setError] = useState(null);
 
@@ -26,7 +27,7 @@ const Students = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        'https://654e0ef4cbc3253557424b9d.mockapi.io/students'
+        "https://654e0ef4cbc3253557424b9d.mockapi.io/students"
       );
       const data = await res.data;
       setStudents(data);
@@ -42,19 +43,19 @@ const Students = () => {
     try {
       const { firstName, lastName, age, group, teacher, avatar } = student;
       const formData = new FormData();
-      formData.append('firstName', firstName);
-      formData.append('lastName', lastName);
-      formData.append('age', age);
-      formData.append('group', group);
-      formData.append('teacher', teacher);
-      formData.append('avatar', avatar);
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("age", age);
+      formData.append("group", group);
+      formData.append("teacher", teacher);
+      formData.append("avatar", avatar);
 
       await axios.post(
-        'https://654e0ef4cbc3253557424b9d.mockapi.io/students',
+        "https://654e0ef4cbc3253557424b9d.mockapi.io/students",
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -82,9 +83,9 @@ const Students = () => {
       <Stack
         direction="row"
         sx={{
-          padding: '20px 0',
-          display: 'flex',
-          justifyContent: 'space-between',
+          padding: "20px 0",
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
         <Typography variant="h4">Students</Typography>
@@ -98,7 +99,7 @@ const Students = () => {
         <Typography
           variant="h4"
           color="error"
-          sx={{ textAlign: 'center', paddingTop: '20px' }}
+          sx={{ textAlign: "center", paddingTop: "20px" }}
         >
           {error.message}
         </Typography>
@@ -122,7 +123,7 @@ const Students = () => {
               {students.map((student) => (
                 <TableRow
                   key={student.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
                     {student.id}
@@ -130,9 +131,9 @@ const Students = () => {
                   <TableCell>
                     <img
                       style={{
-                        width: '50px',
-                        height: '50px',
-                        borderRadius: '50%',
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
                       }}
                       src={student.avatar}
                       alt={student.firstName}
